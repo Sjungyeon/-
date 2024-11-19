@@ -15,79 +15,50 @@
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
         }
-        .emoji-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 50%;
-        }
         .emoji-row {
             display: flex;
             justify-content: center;
             font-size: 2rem;
             margin: 10px 0;
-            animation: move 10s linear infinite;
+            position: relative;
+            transition: transform 5s linear;
         }
         #row1 {
             transform: rotate(180deg);
-            animation-direction: normal;
-        }
-        #row2 {
-            animation-direction: reverse;
-        }
-        @keyframes move {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(100%); }
-            100% { transform: translateY(0); }
-        }
-        .button-container {
-            margin-top: 20px;
-        }
-        .button {
-            padding: 10px 20px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="emoji-container">
-        <div class="emoji-row" id="row1">🦷🦷🦷🦷🦷</div>
-        <div class="emoji-row" id="row2">🦷🦷🦷🦷🦷</div>
-    </div>
-    <div class="button-container">
-        <button class="button" id="toggleButton">꼭꼭</button>
-    </div>
+    <div class="emoji-row" id="row1">🦷🦷🦷🦷🦷🦷</div>
+    <div class="emoji-row" id="row2">🦷🦷🦷🦷🦷🦷</div>
 
     <script>
         const row1 = document.getElementById('row1');
         const row2 = document.getElementById('row2');
-        const button = document.getElementById('toggleButton');
 
-        button.addEventListener('mousedown', () => {
-            row1.style.animationDirection = 'reverse';
-            row2.style.animationDirection = 'normal';
-        });
+        function startAnimation() {
+            row1.style.transform = 'rotate(180deg) translateY(-100px)';
+            row2.style.transform = 'translateY(100px)';
+        }
 
-        button.addEventListener('mouseup', () => {
-            row1.style.animationDirection = 'normal';
-            row2.style.animationDirection = 'reverse';
-        });
+        function reverseAnimation() {
+            row1.style.transform = 'rotate(180deg) translateY(100px)';
+            row2.style.transform = 'translateY(-100px)';
+        }
 
-        button.addEventListener('touchstart', () => {
-            row1.style.animationDirection = 'reverse';
-            row2.style.animationDirection = 'normal';
-        });
+        window.onload = () => {
+            setTimeout(startAnimation, 1000);
 
-        button.addEventListener('touchend', () => {
-            row1.style.animationDirection = 'normal';
-            row2.style.animationDirection = 'reverse';
-        });
+            row1.addEventListener('mousedown', reverseAnimation);
+            row1.addEventListener('mouseup', startAnimation);
+            row1.addEventListener('touchstart', reverseAnimation);
+            row1.addEventListener('touchend', startAnimation);
+
+            row2.addEventListener('mousedown', reverseAnimation);
+            row2.addEventListener('mouseup', startAnimation);
+            row2.addEventListener('touchstart', reverseAnimation);
+            row2.addEventListener('touchend', startAnimation);
+        };
     </script>
 </body>
 </html>
