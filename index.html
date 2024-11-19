@@ -28,12 +28,10 @@
         .line1 {
             top: 50%;
             transform: translateY(-50%) scaleY(-1);
-            animation: moveUp 10s linear infinite;
         }
         .line2 {
             top: 50%;
             transform: translateY(-50%);
-            animation: moveDown 10s linear infinite;
         }
         .button {
             position: absolute;
@@ -58,19 +56,50 @@
 </head>
 <body>
     <div class="container">
-        <div class="line line1 emoji">🦷   🦷🦷🦷🦷🦷</div>
-        <div class="line line2 emoji">🦷🦷🦷🦷🦷   🦷</div>
+        <div class="line line1 emoji" id="line1">🦷   🦷🦷🦷🦷🦷</div>
+        <div class="line line2 emoji" id="line2">🦷🦷🦷🦷🦷   🦷</div>
         <div class="button" id="button">꼭꼭</div>
     </div>
     <script>
         const button = document.getElementById('button');
-        const line1 = document.querySelector('.line1');
-        const line2 = document.querySelector('.line2');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
         const emojis = '🥖🧈🍗🍟🧆🥘🫕🌮🍕🍖🥞🥨🍠🥯🧀🧇🦴🫓🌯🫔🥪🥗🥙🍔🌭🥓🥩🍳🥚🍞🍞🥐🥒🍓🍍🍎🍒🍓🥦'.split('');
 
-        button.addEventListener('mousedown', () => {
-            line1.style.animation = 'moveDown 10s linear infinite';
-            line2.style.animation = 'moveUp 10s linear infinite';
+        let line1Direction = 'up';
+        let line2Direction = 'down';
+
+        function animateLines() {
+            if (line1Direction === 'up') {
+                line1.style.top = `${parseFloat(line1.style.top) - 0.1}%`;
+                if (parseFloat(line1.style.top) <= -100) {
+                    line1.style.top = '100%';
+                }
+            } else {
+                line1.style.top = `${parseFloat(line1.style.top) + 0.1}%`;
+                if (parseFloat(line1.style.top) >= 200) {
+                    line1.style.top = '-100%';
+                }
+            }
+
+            if (line2Direction === 'down') {
+                line2.style.top = `${parseFloat(line2.style.top) + 0.1}%`;
+                if (parseFloat(line2.style.top) >= 200) {
+                    line2.style.top = '-100%';
+                }
+            } else {
+                line2.style.top = `${parseFloat(line2.style.top) - 0.1}%`;
+                if (parseFloat(line2.style.top) <= -100) {
+                    line2.style.top = '100%';
+                }
+            }
+
+            requestAnimationFrame(animateLines);
+        }
+
+        function handleStart() {
+            line1Direction = 'down';
+            line2Direction = 'up';
             const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
             const randomEmojiElement = document.createElement('div');
             randomEmojiElement.className = 'line emoji';
@@ -78,12 +107,21 @@
             randomEmojiElement.style.top = '50%';
             randomEmojiElement.style.transform = 'translateY(-50%)';
             document.querySelector('.container').appendChild(randomEmojiElement);
-        });
+        }
 
-        button.addEventListener('mouseup', () => {
-            line1.style.animation = 'moveUp 10s linear infinite';
-            line2.style.animation = 'moveDown 10s linear infinite';
-        });
+        function handleEnd() {
+            line1Direction = 'up';
+            line2Direction = 'down';
+        }
+
+        button.addEventListener('mousedown', handleStart);
+        button.addEventListener('mouseup', handleEnd);
+        button.addEventListener('touchstart', handleStart);
+        button.addEventListener('touchend', handleEnd);
+
+        line1.style.top = '50%';
+        line2.style.top = '50%';
+        animateLines();
     </script>
 </body>
 </html>
