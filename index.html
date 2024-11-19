@@ -27,6 +27,19 @@
             justify-content: center;
             font-size: 2rem;
             margin: 10px 0;
+            animation: move 5s linear infinite;
+        }
+        #row1 {
+            transform: rotate(180deg);
+            animation-direction: normal;
+        }
+        #row2 {
+            animation-direction: reverse;
+        }
+        @keyframes move {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
         }
         .button-container {
             margin-top: 20px;
@@ -56,34 +69,24 @@
         const row2 = document.getElementById('row2');
         const button = document.getElementById('toggleButton');
 
-        let normalAnimation = true;
-
-        function animateRows() {
-            if (normalAnimation) {
-                row1.style.transform = 'translateY(-100%)';
-                row2.style.transform = 'translateY(100%)';
-            } else {
-                row1.style.transform = 'translateY(100%)';
-                row2.style.transform = 'translateY(-100%)';
-            }
-        }
-
-        setInterval(animateRows, 3000);
-
         button.addEventListener('mousedown', () => {
-            normalAnimation = false;
+            row1.style.animationDirection = 'reverse';
+            row2.style.animationDirection = 'normal';
         });
 
         button.addEventListener('mouseup', () => {
-            normalAnimation = true;
+            row1.style.animationDirection = 'normal';
+            row2.style.animationDirection = 'reverse';
         });
 
         button.addEventListener('touchstart', () => {
-            normalAnimation = false;
+            row1.style.animationDirection = 'reverse';
+            row2.style.animationDirection = 'normal';
         });
 
         button.addEventListener('touchend', () => {
-            normalAnimation = true;
+            row1.style.animationDirection = 'normal';
+            row2.style.animationDirection = 'reverse';
         });
     </script>
 </body>
