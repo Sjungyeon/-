@@ -24,12 +24,27 @@
         .reverse {
             transform: scaleY(-1);
         }
+        .movable {
+            transition: transform 1s;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="emoji-line">🦷🦷🦷🦷🦷   🦷</div>
         <div class="emoji-line reverse">🦷🦷🦷🦷🦷   🦷</div>
+        <div class="emoji-line movable" id="movable-line">🦷🦷🦷🦷🦷   🦷</div>
     </div>
+
+    <script>
+        const movableLine = document.getElementById('movable-line');
+
+        movableLine.addEventListener('touchstart', () => {
+            movableLine.style.transform = 'translateY(50px)';
+        });
+
+        movableLine.addEventListener('touchend', () => {
+            movableLine.style.transform = 'translateY(0)';
+        });
+    </script>
 </body>
 </html>
