@@ -3,62 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emoji Animation</title>
+    <title>Emoji Display</title>
     <style>
         body {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            font-size: 3rem;
         }
-        .emoji-row {
-            display: flex;
-            justify-content: center;
-            font-size: 2rem;
-            margin: 10px 0;
-            position: relative;
-            transition: transform 5s linear;
+        .container {
+            text-align: center;
         }
-        #row1 {
-            transform: rotate(180deg);
+        .emoji-line {
+            display: block;
+            margin: 20px 0;
+        }
+        .reverse {
+            transform: scaleY(-1);
         }
     </style>
 </head>
 <body>
-    <div class="emoji-row" id="row1">🦷🦷🦷🦷🦷🦷</div>
-    <div class="emoji-row" id="row2">🦷🦷🦷🦷🦷🦷</div>
-
-    <script>
-        const row1 = document.getElementById('row1');
-        const row2 = document.getElementById('row2');
-
-        function startAnimation() {
-            row1.style.transform = 'rotate(180deg) translateY(-100px)';
-            row2.style.transform = 'translateY(100px)';
-        }
-
-        function reverseAnimation() {
-            row1.style.transform = 'rotate(180deg) translateY(100px)';
-            row2.style.transform = 'translateY(-100px)';
-        }
-
-        window.onload = () => {
-            setTimeout(startAnimation, 1000);
-
-            row1.addEventListener('mousedown', reverseAnimation);
-            row1.addEventListener('mouseup', startAnimation);
-            row1.addEventListener('touchstart', reverseAnimation);
-            row1.addEventListener('touchend', startAnimation);
-
-            row2.addEventListener('mousedown', reverseAnimation);
-            row2.addEventListener('mouseup', startAnimation);
-            row2.addEventListener('touchstart', reverseAnimation);
-            row2.addEventListener('touchend', startAnimation);
-        };
-    </script>
+    <div class="container">
+        <div class="emoji-line">🦷🦷🦷🦷🦷   🦷</div>
+        <div class="emoji-line reverse">🦷🦷🦷🦷🦷   🦷</div>
+    </div>
 </body>
 </html>
