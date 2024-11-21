@@ -13,13 +13,14 @@
             margin: 0;
             background-color: #ff0000; /* 배경색을 빨간색으로 설정 */
             font-size: 3.6rem; /* 이모지 크기를 20% 키움 */
+            position: relative;
         }
         .container {
             text-align: center;
         }
         .emoji-line {
             display: block;
-            margin: 10px 0; /* 줄 간격을 줄임 */
+            margin: 2px 0; /* 줄 간격을 줄임 */
             letter-spacing: -0.2rem; /* 자간을 줄임 */
         }
         .reverse {
@@ -28,10 +29,29 @@
         .movable {
             transition: transform 1s;
         }
+        .eye {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .drop {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: drop 3s linear infinite;
+        }
+        @keyframes drop {
+            0% { top: 0; opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="eye">👁️</div>
         <div class="emoji-line reverse">🦷🦷🦷🦷🦷      🦷</div>
         <div class="emoji-line movable" id="movable-line">🦷🦷🦷🦷🦷      🦷</div>
     </div>
@@ -46,6 +66,21 @@
         movableLine.addEventListener('touchend', () => {
             movableLine.style.transform = 'translateY(0)';
         });
+
+        function createDrop() {
+            const drop = document.createElement('div');
+            drop.className = 'drop';
+            drop.textContent = '💧';
+            document.body.appendChild(drop);
+
+            drop.style.left = `${Math.random() * 100}%`;
+
+            setTimeout(() => {
+                drop.remove();
+            }, 3000);
+        }
+
+        setInterval(createDrop, Math.random() * 5000 + 5000);
     </script>
 </body>
 </html>
