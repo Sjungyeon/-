@@ -11,15 +11,16 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
-            font-size: 3rem;
+            background-color: #ff0000; /* 배경색을 빨간색으로 설정 */
+            font-size: 3.6rem; /* 이모지 크기를 20% 키움 */
         }
         .container {
             text-align: center;
         }
         .emoji-line {
             display: block;
-            margin: 20px 0;
+            margin: 10px 0; /* 줄 간격을 줄임 */
+            letter-spacing: -0.2rem; /* 자간을 줄임 */
         }
         .reverse {
             transform: scaleY(-1);
@@ -31,8 +32,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="emoji-line reverse">🦷🦷🦷🦷🦷   🦷</div>
-        <div class="emoji-line movable" id="movable-line">🦷🦷🦷🦷🦷   🦷</div>
+        <div class="emoji-line reverse">🦷🦷🦷🦷🦷      🦷</div>
+        <div class="emoji-line movable" id="movable-line">🦷🦷🦷🦷🦷      🦷</div>
     </div>
 
     <script>
