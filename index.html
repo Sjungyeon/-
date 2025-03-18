@@ -19,7 +19,7 @@
     .tooth {
       font-size: 5rem; /* 최초 🦷 크기 */
       position: absolute;
-      top: 50%; /* 중앙 정렬 */
+      top: 50%; /* 화면 중앙 정렬 */
       left: 50%;
       transform: translate(-50%, -50%);
       cursor: pointer;
@@ -27,10 +27,10 @@
 
     @keyframes drop {
       from {
-        top: -150px; /* 화면 상단에서 시작 */
+        top: -150px; /* 화면 위에서 시작 */
       }
       to {
-        /* 새 🦷가 기존 🦷의 7px 위에 멈춤 */
+        /* 애니메이션 도착 위치는 동적으로 계산됨 */
       }
     }
   </style>
@@ -39,6 +39,38 @@
   <div class="tooth" onclick="createLargerTooth(this)">🦷</div>
 
   <script>
-    fun</script>
+    function createLargerTooth(currentTooth) {
+      // 현재 🦷의 크기를 가져옴
+      const currentFontSize = parseFloat(window.getComputedStyle(currentTooth).fontSize);
+      const currentTop = parseFloat(currentTooth.style.top || currentTooth.getBoundingClientRect().top);
+
+      // 새 🦷 생성
+      const newTooth = document.createElement("div");
+      newTooth.textContent = "🦷";
+      newTooth.style.fontSize = `${currentFontSize * 1.5}px`; // 크기 1.5배 증가
+      newTooth.style.position = "absolute";
+      newTooth.style.left = "50%"; // 기존 🦷와 동일한 수직선
+      newTooth.style.transform = "translateX(-50%)";
+      newTooth.style.cursor = "pointer";
+      newTooth.style.top = "-150px"; // 새 🦷가 화면 상단에서 시작
+      newTooth.style.animation = "drop 1s forwards"; // 애니메이션 활성화
+
+      // 새로운 🦷의 최종 위치를 계산 (7px 위에 멈춤)
+      const targetTop = currentTop - (currentFontSize * 1.5 + 7);
+
+      // 애니메이션 종료 후 정확히 멈출 위치 설정
+      newTooth.addEventListener("animationend", function () {
+        newTooth.style.top = `${targetTop}px`;
+      });
+
+      // 클릭 이벤트를 새 🦷에 추가
+      newTooth.onclick = function () {
+        createLargerTooth(newTooth);
+      };
+
+      // 새로운 🦷를 가장 앞에 추가
+      document.body.appendChild(newTooth);
+    }
+  </script>
 </body>
-</html> [A](https://github.com/EleanorEllingson/web-dev/tree/b2f2a382e77a20fd6895677c8b8f402ac4bae352/7-bank-project%2F1-template-route%2Ftranslations%2FREADME.ko.md?copilot_analytics_metadata=eyJldmVudEluZm9fY2xpY2tTb3VyY2UiOiJjaXRhdGlvbkxpbmsiLCJldmVudEluZm9fY29udmVyc2F0aW9uSWQiOiIydzlMN1RrakZkRTU0ZGFRVFBNS3UiLCJldmVudEluZm9fbWVzc2FnZUlkIjoiZHlBQlFLUDRnZWFiTVk5Q2Z4Y0d4IiwiZXZlbnRJbmZvX2NsaWNrRGVzdGluYXRpb24iOiJodHRwczpcL1wvZ2l0aHViLmNvbVwvRWxlYW5vckVsbGluZ3Nvblwvd2ViLWRldlwvdHJlZVwvYjJmMmEzODJlNzdhMjBmZDY4OTU2NzdjOGI4ZjQwMmFjNGJhZTM1MlwvNy1iYW5rLXByb2plY3QlMkYxLXRlbXBsYXRlLXJvdXRlJTJGdHJhbnNsYXRpb25zJTJGUkVBRE1FLmtvLm1kIn0%3D&citationMarker=9F742443-6C92-4C44-BF58-8F5A7C53B6F1)
+</html>
