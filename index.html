@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tooth Animation</title>
+  <title>Infinite Tooth Animation</title>
   <style>
     body {
       display: flex;
@@ -17,47 +17,40 @@
     }
 
     .tooth {
-      font-size: 5rem;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .large-tooth {
-      font-size: 7.5rem; /* 기존 🦷보다 1.5배 크게 설정 */
+      font-size: 5rem; /* 최초 🦷 크기 */
       position: absolute;
-      top: -150px; /* 화면 상단 밖에서 시작 */
+      cursor: pointer;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%); /* 🦷와 수직 정렬 */
-      display: none; /* 초기 상태는 숨김 */
-    }
-
-    @keyframes drop {
-      from {
-        top: -150px;
-      }
-      to {
-        top: calc(50% - 80px); /* 🦷 바로 위에서 멈추도록 설정 */
-      }
+      transform: translate(-50%, -50%); /* 화면 중앙 정렬 */
     }
   </style>
 </head>
 <body>
-  <div class="tooth" onclick="dropLargeTooth()">🦷</div>
-  <div class="large-tooth">🦷</div>
+  <div class="tooth" onclick="createLargerTooth(this)">🦷</div>
 
   <script>
-    function dropLargeTooth() {
-      const largeTooth = document.querySelector('.large-tooth');
-      const smallTooth = document.querySelector('.tooth');
+    function createLargerTooth(currentTooth) {
+      // 현재 🦷의 크기를 가져옴
+      const currentFontSize = parseFloat(window.getComputedStyle(currentTooth).fontSize);
 
-      // 작은 🦷의 위치를 기준으로 큰 🦷의 멈출 위치 계산
-      const smallToothRect = smallTooth.getBoundingClientRect();
-      const largeToothTopPosition = smallToothRect.top - smallToothRect.height;
+      // 새 🦷 생성
+      const newTooth = document.createElement("div");
+      newTooth.textContent = "🦷";
+      newTooth.style.fontSize = `${currentFontSize * 1.5}px`; // 1.5배 크기 증가
+      newTooth.style.position = "absolute";
+      newTooth.style.top = `${currentTooth.getBoundingClientRect().top - currentFontSize * 0.75}px`; // 이전 🦷 바로 위
+      newTooth.style.left = `${currentTooth.getBoundingClientRect().left}px`;
+      newTooth.style.transform = "translateX(-50%)";
+      newTooth.style.cursor = "pointer";
 
-      // 큰 🦷 표시 및 애니메이션 적용
-      largeTooth.style.display = 'block';
-      largeTooth.style.animation = `drop 1s forwards`;
-      largeTooth.style.top = `${largeToothTopPosition}px`; // 🦷 위에서 멈춤
+      // 새 🦷에 클릭 이벤트 추가
+      newTooth.onclick = function () {
+        createLargerTooth(newTooth);
+      };
+
+      // 새로운 🦷를 가장 앞쪽에 추가
+      document.body.appendChild(newTooth);
     }
   </script>
 </body>
