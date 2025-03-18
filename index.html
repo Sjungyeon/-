@@ -19,10 +19,19 @@
     .tooth {
       font-size: 5rem; /* 최초 🦷 크기 */
       position: absolute;
-      cursor: pointer;
-      top: 50%;
+      top: 50%; /* 중앙 정렬 */
       left: 50%;
-      transform: translate(-50%, -50%); /* 화면 중앙 정렬 */
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+
+    @keyframes drop {
+      from {
+        top: -150px; /* 화면 위에서 시작 */
+      }
+      to {
+        top: 50%; /* 기존 🦷 위치와 같은 곳에서 멈춤 */
+      }
     }
   </style>
 </head>
@@ -37,12 +46,13 @@
       // 새 🦷 생성
       const newTooth = document.createElement("div");
       newTooth.textContent = "🦷";
-      newTooth.style.fontSize = `${currentFontSize * 1.5}px`; // 1.5배 크기 증가
+      newTooth.style.fontSize = `${currentFontSize * 1.5}px`; // 크기 1.5배 증가
       newTooth.style.position = "absolute";
-      newTooth.style.top = `${currentTooth.getBoundingClientRect().top - currentFontSize * 0.75}px`; // 이전 🦷 바로 위
-      newTooth.style.left = `${currentTooth.getBoundingClientRect().left}px`;
+      newTooth.style.top = "-150px"; // 화면 위에서 시작
+      newTooth.style.left = "50%"; // 기존 🦷와 동일한 수직선
       newTooth.style.transform = "translateX(-50%)";
       newTooth.style.cursor = "pointer";
+      newTooth.style.animation = "drop 1s forwards"; // 부드러운 애니메이션
 
       // 새 🦷에 클릭 이벤트 추가
       newTooth.onclick = function () {
