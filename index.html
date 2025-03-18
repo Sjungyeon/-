@@ -13,31 +13,30 @@
       margin: 0;
       background-color: #f0f0f0;
       overflow: hidden;
+      position: relative;
     }
 
     .tooth {
       font-size: 5rem;
-      cursor: pointer;
       position: relative;
+      cursor: pointer;
     }
 
     .crown {
       font-size: 5rem;
       position: absolute;
-      top: -100px; /* 화면 밖 상단에서 시작 */
-      left: 0;
-      right: 0;
-      margin: auto;
-      display: none; /* 처음에는 숨김 */
-      animation: drop 1s forwards;
+      top: -150px; /* 화면 상단 밖 */
+      left: 50%;
+      transform: translateX(-50%); /* 수직 정렬 */
+      display: none; /* 초기 상태는 숨김 */
     }
 
     @keyframes drop {
       from {
-        top: -100px;
+        top: -150px;
       }
       to {
-        top: -80px; /* 🦷 위에 멈추는 위치 */
+        top: calc(50% - 80px); /* 🦷의 1픽셀 위에 멈추도록 조정 */
       }
     }
   </style>
@@ -49,7 +48,18 @@
   <script>
     function dropCrown() {
       const crown = document.querySelector('.crown');
+      const tooth = document.querySelector('.tooth');
+
+      // 치아 위치를 기준으로 👑의 멈출 위치 계산
+      const toothRect = tooth.getBoundingClientRect();
+      const crownTopPosition = toothRect.top - 80; // 🦷 바로 위(1px 여유 포함)
+
       crown.style.display = 'block'; // 👑 표시
+      crown.style.left = `${toothRect.left + toothRect.width / 2}px`; // 수직선 정렬
+      crown.style.animation = `drop 1s forwards`;
+
+      // 애니메이션의 끝 위치를 직접 설정
+      crown.style.top = `${crownTopPosition}px`;
     }
   </script>
 </body>
