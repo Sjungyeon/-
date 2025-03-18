@@ -19,7 +19,7 @@
     .tooth {
       font-size: 5rem; /* 최초 🦷 크기 */
       position: absolute;
-      top: 50%; /* 화면 중앙 정렬 */
+      top: 50%; /* 중앙 정렬 */
       left: 50%;
       transform: translate(-50%, -50%);
       cursor: pointer;
@@ -30,7 +30,7 @@
         top: -150px; /* 화면 위에서 시작 */
       }
       to {
-        /* 애니메이션 도착 위치는 동적으로 계산됨 */
+        top: 50%; /* 기존 🦷 위치와 같은 곳에서 멈춤 */
       }
     }
   </style>
@@ -42,33 +42,24 @@
     function createLargerTooth(currentTooth) {
       // 현재 🦷의 크기를 가져옴
       const currentFontSize = parseFloat(window.getComputedStyle(currentTooth).fontSize);
-      const currentTop = parseFloat(currentTooth.style.top || currentTooth.getBoundingClientRect().top);
 
       // 새 🦷 생성
       const newTooth = document.createElement("div");
       newTooth.textContent = "🦷";
       newTooth.style.fontSize = `${currentFontSize * 1.5}px`; // 크기 1.5배 증가
       newTooth.style.position = "absolute";
+      newTooth.style.top = "-150px"; // 화면 위에서 시작
       newTooth.style.left = "50%"; // 기존 🦷와 동일한 수직선
       newTooth.style.transform = "translateX(-50%)";
       newTooth.style.cursor = "pointer";
-      newTooth.style.top = "-150px"; // 새 🦷가 화면 상단에서 시작
-      newTooth.style.animation = "drop 1s forwards"; // 애니메이션 활성화
+      newTooth.style.animation = "drop 1s forwards"; // 부드러운 애니메이션
 
-      // 새로운 🦷의 최종 위치를 계산 (7px 위에 멈춤)
-      const targetTop = currentTop - (currentFontSize * 1.5 + 7);
-
-      // 애니메이션 종료 후 정확히 멈출 위치 설정
-      newTooth.addEventListener("animationend", function () {
-        newTooth.style.top = `${targetTop}px`;
-      });
-
-      // 클릭 이벤트를 새 🦷에 추가
+      // 새 🦷에 클릭 이벤트 추가
       newTooth.onclick = function () {
         createLargerTooth(newTooth);
       };
 
-      // 새로운 🦷를 가장 앞에 추가
+      // 새로운 🦷를 가장 앞쪽에 추가
       document.body.appendChild(newTooth);
     }
   </script>
