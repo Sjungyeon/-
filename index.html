@@ -1,59 +1,56 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>;HHHHHH H;</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #ff0000; /* 배경색을 빨간색으로 설정 */
-            font-size: 3.6rem; /* 이모지 크기를 20% 키움 */
-            position: relative;
-        }
-        .container {
-            text-align: center;
-        }
-        .emoji-line {
-            display: block;
-            margin: 2px 0; /* 줄 간격을 줄임 */
-            letter-spacing: -0.2rem; /* 자간을 줄임 */
-        }
-        .reverse {
-            transform: scaleY(-1);
-        }
-        .movable {
-            transition: transform 1s;
-        }
-        .eye {
-            position: absolute;
-            top: 10%;
-            left: 70%; /* 조금 더 우측으로 배치 */
-            transform: translateX(-50%);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tooth and Crown Animation</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      overflow: hidden;
+    }
+
+    .tooth {
+      font-size: 5rem;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .crown {
+      font-size: 5rem;
+      position: absolute;
+      top: -100px; /* 화면 밖 상단에서 시작 */
+      left: 0;
+      right: 0;
+      margin: auto;
+      display: none; /* 처음에는 숨김 */
+      animation: drop 1s forwards;
+    }
+
+    @keyframes drop {
+      from {
+        top: -100px;
+      }
+      to {
+        top: -80px; /* 🦷 위에 멈추는 위치 */
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="eye">👁️</div>
-        <div class="emoji-line reverse">🦷🦷🦷🦷🦷      🦷</div>
-        <div class="emoji-line movable" id="movable-line">🦷🦷🦷🦷🦷      🦷</div>
-    </div>
+  <div class="tooth" onclick="dropCrown()">🦷</div>
+  <div class="crown">👑</div>
 
-    <script>
-        const movableLine = document.getElementById('movable-line');
-
-        movableLine.addEventListener('touchstart', () => {
-            movableLine.style.transform = 'translateY(50px)';
-        });
-
-        movableLine.addEventListener('touchend', () => {
-            movableLine.style.transform = 'translateY(0)';
-        });
-    </script>
+  <script>
+    function dropCrown() {
+      const crown = document.querySelector('.crown');
+      crown.style.display = 'block'; // 👑 표시
+    }
+  </script>
 </body>
 </html>
