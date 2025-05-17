@@ -15,33 +15,35 @@
     }
     h1 {
       color: #ff0000;
-      font-size: 20px; /* 작게 조정됨 */
+      font-size: 20px;
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 500;
       margin-top: 80px;
     }
     .datetime {
-      font-size: 1em;
-      color: #333;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #0033ff;
       margin-top: 20px;
+      letter-spacing: 0.03em;
     }
     .ticker-container {
       width: 100%;
       overflow: hidden;
       white-space: nowrap;
       box-sizing: border-box;
-      border-top: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
-      margin-top: 40px;
-      padding: 10px 0;
+      margin-top: 30px;
+      padding: 5px 0;
     }
     .ticker-text {
       display: inline-block;
       padding-left: 100%;
       animation: ticker 15s linear infinite;
-      font-size: 0.9em;
-      color: #555;
+      font-size: 1em;
+      font-weight: bold;
+      color: #0033ff;
+      letter-spacing: 0.03em;
     }
     @keyframes ticker {
       0% { transform: translateX(0%); }
@@ -84,7 +86,7 @@
       document.getElementById('datetime').textContent = datetime;
     }
     setInterval(updateTime, 1000);
-    updateTime(); // 처음 실행
+    updateTime();
   </script>
 </body>
 </html>
