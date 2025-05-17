@@ -3,65 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Infinite Tooth Animation</title>
+  <title>The Newest Death</title>
   <style>
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
-      background-color: red; /* 배경색 빨간색 */
-      overflow: hidden;
-      position: relative;
+      padding: 0;
+      background-color: #fff;
+      font-family: serif;
+      text-align: center;
     }
-
-    .tooth {
-      font-size: 5rem; /* 최초 🦷 크기 */
-      position: absolute;
-      top: 50%; /* 중앙 정렬 */
-      left: 50%;
-      transform: translate(-50%, -50%);
-      cursor: pointer;
+    h1 {
+      color: #b30000; /* 진한 빨강 */
+      font-size: 3em;
+      margin-top: 80px;
+      font-family: "Georgia", serif;
     }
-
-    @keyframes drop {
-      from {
-        top: -150px; /* 화면 위에서 시작 */
-      }
-      to {
-        top: 50%; /* 기존 🦷 위치와 같은 곳에서 멈춤 */
-      }
+    .date {
+      font-size: 1em;
+      color: #333;
+      margin-top: 20px;
+    }
+    .name {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 5px;
+    }
+    .video {
+      margin-top: 40px;
+    }
+    iframe {
+      width: 560px;
+      height: 315px;
+      max-width: 90%;
     }
   </style>
 </head>
 <body>
-  <div class="tooth" onclick="createLargerTooth(this)">🦷</div>
-
-  <script>
-    function createLargerTooth(currentTooth) {
-      // 현재 🦷의 크기를 가져옴
-      const currentFontSize = parseFloat(window.getComputedStyle(currentTooth).fontSize);
-
-      // 새 🦷 생성
-      const newTooth = document.createElement("div");
-      newTooth.textContent = "🦷";
-      newTooth.style.fontSize = `${currentFontSize * 1.5}px`; // 크기 1.5배 증가
-      newTooth.style.position = "absolute";
-      newTooth.style.top = "-150px"; // 화면 위에서 시작
-      newTooth.style.left = "50%"; // 기존 🦷와 동일한 수직선
-      newTooth.style.transform = "translateX(-50%)";
-      newTooth.style.cursor = "pointer";
-      newTooth.style.animation = "drop 1s forwards"; // 부드러운 애니메이션
-
-      // 새 🦷에 클릭 이벤트 추가
-      newTooth.onclick = function () {
-        createLargerTooth(newTooth);
-      };
-
-      // 새로운 🦷를 가장 앞쪽에 추가
-      document.body.appendChild(newTooth);
-    }
-  </script>
+  <h1>THE NEWEST DEATH</h1>
+  <div class="date">2025.00.00</div>
+  <div class="name">SHIN JUNG YEON</div>
+  <div class="video">
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+  </div>
 </body>
 </html>
