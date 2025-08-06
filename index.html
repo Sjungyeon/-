@@ -34,42 +34,64 @@
       white-space: nowrap;
       box-sizing: border-box;
       margin-top: 30px;
+      padding: 5px 0;
     }
-    .video-container {
+    .ticker-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: ticker 15s linear infinite;
+      font-size: 1em;
+      font-weight: bold;
+      color: #0033ff;
+      letter-spacing: 0.03em;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+    .video {
       margin-top: 40px;
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      max-width: 100%;
     }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    iframe {
+      width: 560px;
+      height: 315px;
+      max-width: 90%;
     }
   </style>
 </head>
 <body>
-  <h1>The Newest Death</h1>
-  <div class="datetime">
-    <script>
-      const date = new Date();
-      document.write(date.toDateString());
-    </script>
-  </div>
+  <h1>THE NEWEST DEATH</h1>
+  <div class="datetime" id="datetime"></div>
+
   <div class="ticker-container">
-    <!-- You can add ticker text here -->
+    <div class="ticker-text">
+     Lee Min, 1978. 12. 15 ~ 2025. 8. 5
+    </div>
   </div>
-  <div class="video-container">
+
+  <div class="video">
     <iframe 
-      src="https://www.youtube.com/embed/iL1Agkvbz_Q?autoplay=1&mute=1&controls=0&rel=0&showinfo=0&modestbranding=1" 
+      src="https://www.youtube.com/embed/iL1Agkvbz_Q?autoplay=1&mute=1"
       frameborder="0" 
       allow="autoplay; encrypted-media" 
       allowfullscreen>
     </iframe>
   </div>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const datetime = `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
+      document.getElementById('datetime').textContent = datetime;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+  </script>
 </body>
 </html>
